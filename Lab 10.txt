@@ -1,0 +1,404 @@
+db.Student.insertMany([{ "_id": 1, "name": "John", "age": 30, "city": "New York", "isActive": true },
+{ "_id": 2, "name": "Jane", "age": 25, "city": "Los Angeles", "isActive": false },
+{ "_id": 3, "name": "Tom", "age": 35, "city": "Chicago", "isActive": true },
+{ "_id": 4, "name": "Lucy", "age": 28, "city": "San Francisco", "isActive": true },
+{ "_id": 5, "name": "David", "age": 40, "city": "Miami", "isActive": false },
+{ "_id": 6, "name": "Eva", "age": 23, "city": "Boston", "isActive": true },
+{ "_id": 7, "name": "Nick", "age": 38, "city": "Seattle", "isActive": false },
+{ "_id": 8, "name": "Sophia", "age": 27, "city": "New York", "isActive": true },
+{ "_id": 9, "name": "Liam", "age": 32, "city": "Los Angeles", "isActive": false },
+{ "_id": 10, "name": "Olivia", "age": 29, "city": "San Diego", "isActive": true }])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5,
+    '5': 6,
+    '6': 7,
+    '7': 8,
+    '8': 9,
+    '9': 10
+  }
+}
+db.Student.find().forEach(printjson)
+{ _id: 1, name: 'John', age: 30, city: 'New York', isActive: true }
+{ _id: 2, name: 'Jane', age: 25, city: 'Los Angeles', isActive: false }
+{ _id: 3, name: 'Tom', age: 35, city: 'Chicago', isActive: true }
+{
+  _id: 4,
+  name: 'Lucy',
+  age: 28,
+  city: 'San Francisco',
+  isActive: true
+}
+{ _id: 5, name: 'David', age: 40, city: 'Miami', isActive: false }
+{ _id: 6, name: 'Eva', age: 23, city: 'Boston', isActive: true }
+{ _id: 7, name: 'Nick', age: 38, city: 'Seattle', isActive: false }
+{ _id: 8, name: 'Sophia', age: 27, city: 'New York', isActive: true }
+{ _id: 9, name: 'Liam', age: 32, city: 'Los Angeles', isActive: false }
+{ _id: 10, name: 'Olivia', age: 29, city: 'San Diego', isActive: true }
+db.Student.updateOne({name:'John'},{age:31})
+MongoInvalidArgumentError: Update document requires atomic operators
+db.Student.updateOne({name:'John',age:31})
+MongoInvalidArgumentError: Update document requires atomic operators
+db.Student.updateOne({name:'John'],{$set:{age:31}})
+SyntaxError: Unexpected token, expected "," (1:33)
+
+> 1 | db.Student.updateOne({name:'John'],{$set:{age:31}})
+    |                                  ^
+db.Student.updateOne({name:'John'},{$set:{age:31}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateMany({city:'New York'},{$set:{city:'New Jersey'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.Student.updateMany({age:{$gt:35}},{$set:{isActive:'false'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.Student.updateMany({},{age:{$inc:1}})
+MongoInvalidArgumentError: Update document requires atomic operators
+db.Student.updateMany({},{$inc:{age:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 10,
+  modifiedCount: 10,
+  upsertedCount: 0
+}
+db.Student.updateOne({name:'Eva'},{$set:{city:'Cambridge'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateOne({name:'Sophia'},{$set:{isActive:'false'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateMany({age:{$lt:30}},{$set:{city:'San Diego'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.Student.updateMany({},{$rename:{age:'years'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 10,
+  modifiedCount: 10,
+  upsertedCount: 0
+}
+db.Student.updateOne({name:'Nick'},{$set:{isActive:'true'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateMany({},{$set:{country:'USA'}},{upsert:true})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 10,
+  modifiedCount: 10,
+  upsertedCount: 0
+}
+db.Student.find()
+{
+  _id: 1,
+  name: 'John',
+  city: 'New Jersey',
+  isActive: true,
+  years: 32,
+  country: 'USA'
+}
+{
+  _id: 2,
+  name: 'Jane',
+  city: 'San Diego',
+  isActive: false,
+  years: 26,
+  country: 'USA'
+}
+{
+  _id: 3,
+  name: 'Tom',
+  city: 'Chicago',
+  isActive: true,
+  years: 36,
+  country: 'USA'
+}
+{
+  _id: 4,
+  name: 'Lucy',
+  city: 'San Diego',
+  isActive: true,
+  years: 29,
+  country: 'USA'
+}
+{
+  _id: 5,
+  name: 'David',
+  city: 'Miami',
+  isActive: 'false',
+  years: 41,
+  country: 'USA'
+}
+{
+  _id: 6,
+  name: 'Eva',
+  city: 'San Diego',
+  isActive: true,
+  years: 24,
+  country: 'USA'
+}
+{
+  _id: 7,
+  name: 'Nick',
+  city: 'Seattle',
+  isActive: 'true',
+  years: 39,
+  country: 'USA'
+}
+{
+  _id: 8,
+  name: 'Sophia',
+  city: 'San Diego',
+  isActive: 'false',
+  years: 28,
+  country: 'USA'
+}
+{
+  _id: 9,
+  name: 'Liam',
+  city: 'Los Angeles',
+  isActive: false,
+  years: 33,
+  country: 'USA'
+}
+{
+  _id: 10,
+  name: 'Olivia',
+  city: 'San Diego',
+  isActive: true,
+  years: 30,
+  country: 'USA'
+}
+db.Student.updateOne({name:'David'},{$set:{city:'Orlando'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateMany({},{$mutiply:{'years',2}})
+SyntaxError: Unexpected token (1:43)
+
+> 1 | db.Student.updateMany({},{$mutiply:{'years',2}})
+    |                                            ^
+db.Student.updateMany({},{$mul:{years:2}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 10,
+  modifiedCount: 10,
+  upsertedCount: 0
+}
+db.Student.updateMany({name:'Tom'},{$unset:{city:''}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateMany({years:{$gt:30}},{$set:{premiumUser:'true'}},{upsert:true})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 10,
+  modifiedCount: 10,
+  upsertedCount: 0
+}
+db.Student.updateOne({name:'Jane'},{$set:{isActive:'true'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateOne({name:'Lucy'},{$set:{isActive:'false'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.deleteOne({name:'Nick'})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.Student.deleteMany({isActive:'false'})
+{
+  acknowledged: true,
+  deletedCount: 3
+}
+db.Student.deleteMany({city:'New York'})
+{
+  acknowledged: true,
+  deletedCount: 0
+}
+db.Student.deleteOne({name:'Olivia'})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.Student.deleteMany({years:{$lt:25}})
+{
+  acknowledged: true,
+  deletedCount: 0
+}
+db.Student.deleteOne({isActive:'true'})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.Student.deleteMany({city:'Los Angeles'})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.Student.deleteMany({city:''})
+{
+  acknowledged: true,
+  deletedCount: 0
+}
+db.Student.updateMany({},{$rename:{city:'location'})
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.Student.updateMany({},{$rename:{city:'location'})
+    |                                                    ^
+db.Student.updateMany({},{$rename:{city:'location'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.Student.find()
+{
+  _id: 1,
+  name: 'John',
+  isActive: true,
+  years: 64,
+  country: 'USA',
+  premiumUser: 'true',
+  location: 'New Jersey'
+}
+{
+  _id: 3,
+  name: 'Tom',
+  isActive: true,
+  years: 72,
+  country: 'USA',
+  premiumUser: 'true'
+}
+{
+  _id: 6,
+  name: 'Eva',
+  isActive: true,
+  years: 48,
+  country: 'USA',
+  premiumUser: 'true',
+  location: 'San Diego'
+}
+db.Student.updateOne({name:'John'},{$rename:{name:'FullName'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Student.updateMany({},{$rename:{isActive:'status'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+db.Student.updateMany({city:'San Francisco'},{$rename:{years:'yearsOld'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.createCollection("Employee")
+{ ok: 1 }
+db.Student.updateMany({years:{$gt:35})
+
+
+// Create a capped collection named "Employee"
+db.createCollection("Employee", {
+  capped: true, // Enable the capped collection
+  size: 1000000, // Set the maximum size of the collection in bytes (adjust size as needed)
+  max: 1000, // Set the maximum number of documents allowed in the collection
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["Ecode", "Ename"], // Ecode and Ename are required
+      properties: {
+        Ecode: {
+          bsonType: "int", // Ecode must be an integer
+        },
+        Ename: {
+          bsonType: "string", // Ename must be a string
+        },
+        Age: {
+          bsonType: "int", // Age must be an integer
+        },
+        City: {
+          bsonType: "string", // City must be a string
+        },
+      },
+    },
+  },
+});
+
+

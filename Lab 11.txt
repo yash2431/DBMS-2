@@ -1,0 +1,962 @@
+use test
+switched to db test
+use Darshan
+switched to db Darshan
+db.createCollection("Employee")
+{ ok: 1 }
+show collections
+Employee
+db.Employee.insertMany([
+  {
+    EID: 1,
+    ENAME: "Nick",
+    GENDER: "Male",
+    JOININGDATE: "2013-01-01",
+    SALARY: 4000,
+    CITY: "London"
+  },
+  {
+    EID: 2,
+    ENAME: "Julian",
+    GENDER: "Female",
+    JOININGDATE: "2014-10-01",
+    SALARY: 3000,
+    CITY: "New York"
+  },
+  {
+    EID: 3,
+    ENAME: "Roy",
+    GENDER: "Male",
+    JOININGDATE: "2016-06-01",
+    SALARY: 3500,
+    CITY: "London"
+  },
+  {
+    EID: 4,
+    ENAME: "Tom",
+    GENDER: "Male",
+    JOININGDATE: null,
+    SALARY: 4500,
+    CITY: "London"
+  },
+  {
+    EID: 5,
+    ENAME: "Jerry",
+    GENDER: "Male",
+    JOININGDATE: "2013-02-01",
+    SALARY: 2800,
+    CITY: "Sydney"
+  },
+  {
+    EID: 6,
+    ENAME: "Philip",
+    GENDER: "Male",
+    JOININGDATE: "2015-01-01",
+    SALARY: 7000,
+    CITY: "New York"
+  },
+  {
+    EID: 7,
+    ENAME: "Sara",
+    GENDER: "Female",
+    JOININGDATE: "2017-08-01",
+    SALARY: 4800,
+    CITY: "Sydney"
+  },
+  {
+    EID: 8,
+    ENAME: "Emily",
+    GENDER: "Female",
+    JOININGDATE: "2015-01-01",
+    SALARY: 5500,
+    CITY: "New York"
+  },
+  {
+    EID: 9,
+    ENAME: "Michael",
+    GENDER: "Male",
+    JOININGDATE: null,
+    SALARY: 6500,
+    CITY: "London"
+  },
+  {
+    EID: 10,
+    ENAME: "John",
+    GENDER: "Male",
+    JOININGDATE: "2015-01-01",
+    SALARY: 8800,
+    CITY: "London"
+  }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("67aadbcef56fa8abfaf6e933"),
+    '1': ObjectId("67aadbcef56fa8abfaf6e934"),
+    '2': ObjectId("67aadbcef56fa8abfaf6e935"),
+    '3': ObjectId("67aadbcef56fa8abfaf6e936"),
+    '4': ObjectId("67aadbcef56fa8abfaf6e937"),
+    '5': ObjectId("67aadbcef56fa8abfaf6e938"),
+    '6': ObjectId("67aadbcef56fa8abfaf6e939"),
+    '7': ObjectId("67aadbcef56fa8abfaf6e93a"),
+    '8': ObjectId("67aadbcef56fa8abfaf6e93b"),
+    '9': ObjectId("67aadbcef56fa8abfaf6e93c")
+  }
+}
+db.Employee.find({ENAME:{$regex:/^E/}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+db.Employee.find({ENAME:{$regex:/n$/}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/^[S,M]/}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+db.Employee.find({CITY:{$regex:/^[A-M]/}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e933"),
+  EID: 1,
+  ENAME: 'Nick',
+  GENDER: 'Male',
+  JOININGDATE: '2013-01-01',
+  SALARY: 4000,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e935"),
+  EID: 3,
+  ENAME: 'Roy',
+  GENDER: 'Male',
+  JOININGDATE: '2016-06-01',
+  SALARY: 3500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e936"),
+  EID: 4,
+  ENAME: 'Tom',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 4500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({CITY:{$regex:/ney$/}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+db.Employee.find({CITY:{$regex:/[n]/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e933"),
+  EID: 1,
+  ENAME: 'Nick',
+  GENDER: 'Male',
+  JOININGDATE: '2013-01-01',
+  SALARY: 4000,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e935"),
+  EID: 3,
+  ENAME: 'Roy',
+  GENDER: 'Male',
+  JOININGDATE: '2016-06-01',
+  SALARY: 3500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e936"),
+  EID: 4,
+  ENAME: 'Tom',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 4500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/^e...../,$options:'i'}})
+db.Employee.find({ENAME:{$regex:/^E...../,$options:'i'}})
+db.Employee.find({ENAME:{$regex:/^E..../,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+db.Employee.find({ENAME:{$regex:/^S.*a$/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+db.Employee.find({ENAME:{$regex:/^Phi/,$options:'i'}},{EID:1,ENAME:1,CITY:1,SALARY:1})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+db.Employee.find({CITY:{$regex:/[dne]/,$options:'i'}},{ENAME:1,JOININGDATE:1,CITY:1})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e933"),
+  ENAME: 'Nick',
+  JOININGDATE: '2013-01-01',
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  ENAME: 'Julian',
+  JOININGDATE: '2014-10-01',
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e935"),
+  ENAME: 'Roy',
+  JOININGDATE: '2016-06-01',
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e936"),
+  ENAME: 'Tom',
+  JOININGDATE: null,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  ENAME: 'Jerry',
+  JOININGDATE: '2013-02-01',
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  ENAME: 'Philip',
+  JOININGDATE: '2015-01-01',
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  ENAME: 'Sara',
+  JOININGDATE: '2017-08-01',
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  ENAME: 'Emily',
+  JOININGDATE: '2015-01-01',
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  ENAME: 'Michael',
+  JOININGDATE: null,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  ENAME: 'John',
+  JOININGDATE: '2015-01-01',
+  CITY: 'London'
+}
+db.Employee.find({CITY:{$regex:/![London,Sydney]/,$options:'i'}},{ENAME:1,JOININGDATE:1,CITY:1})
+db.Employee.find({CITY:{$regex:/~[London,Sydney]/,$options:'i'}},{ENAME:1,JOININGDATE:1,CITY:1})
+db.Employee.find({CITY:{$nin:['London','Sydney']}},{ENAME:1,JOININGDATE:1,CITY:1})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  ENAME: 'Julian',
+  JOININGDATE: '2014-10-01',
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  ENAME: 'Philip',
+  JOININGDATE: '2015-01-01',
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  ENAME: 'Emily',
+  JOININGDATE: '2015-01-01',
+  CITY: 'New York'
+}
+db.Employee.find({ENAME:{$regex:/^j/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/y$/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e935"),
+  EID: 3,
+  ENAME: 'Roy',
+  GENDER: 'Male',
+  JOININGDATE: '2016-06-01',
+  SALARY: 3500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+db.Employee.find({ENAME:{$regex:/[a]/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/[a,e]/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/^j.*n$/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({CITY:{$regex:/^New/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+db.Employee.find({$nor:[{CITY:/^L/}]})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+db.Employee.find({CITY:{$regex:/York/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+db.employee.find({ENAME:/[aeiou]{2}/})
+db.employee.find({ENAME:/[aeiou]{2}/i})
+db.Employee.find({ENAME:{$regex:/[aeiou]{2}/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/^.{3,}/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e933"),
+  EID: 1,
+  ENAME: 'Nick',
+  GENDER: 'Male',
+  JOININGDATE: '2013-01-01',
+  SALARY: 4000,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e935"),
+  EID: 3,
+  ENAME: 'Roy',
+  GENDER: 'Male',
+  JOININGDATE: '2016-06-01',
+  SALARY: 3500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e936"),
+  EID: 4,
+  ENAME: 'Tom',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 4500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/..../,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e933"),
+  EID: 1,
+  ENAME: 'Nick',
+  GENDER: 'Male',
+  JOININGDATE: '2013-01-01',
+  SALARY: 4000,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e934"),
+  EID: 2,
+  ENAME: 'Julian',
+  GENDER: 'Female',
+  JOININGDATE: '2014-10-01',
+  SALARY: 3000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e937"),
+  EID: 5,
+  ENAME: 'Jerry',
+  GENDER: 'Male',
+  JOININGDATE: '2013-02-01',
+  SALARY: 2800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/^....$/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e933"),
+  EID: 1,
+  ENAME: 'Nick',
+  GENDER: 'Male',
+  JOININGDATE: '2013-01-01',
+  SALARY: 4000,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93c"),
+  EID: 10,
+  ENAME: 'John',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 8800,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/[s,m]/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e936"),
+  EID: 4,
+  ENAME: 'Tom',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 4500,
+  CITY: 'London'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/^[s,m]/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e939"),
+  EID: 7,
+  ENAME: 'Sara',
+  GENDER: 'Female',
+  JOININGDATE: '2017-08-01',
+  SALARY: 4800,
+  CITY: 'Sydney'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93b"),
+  EID: 9,
+  ENAME: 'Michael',
+  GENDER: 'Male',
+  JOININGDATE: null,
+  SALARY: 6500,
+  CITY: 'London'
+}
+db.Employee.find({ENAME:{$regex:/il/,$options:'i'}})
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e938"),
+  EID: 6,
+  ENAME: 'Philip',
+  GENDER: 'Male',
+  JOININGDATE: '2015-01-01',
+  SALARY: 7000,
+  CITY: 'New York'
+}
+{
+  _id: ObjectId("67aadbcef56fa8abfaf6e93a"),
+  EID: 8,
+  ENAME: 'Emily',
+  GENDER: 'Female',
+  JOININGDATE: '2015-01-01',
+  SALARY: 5500,
+  CITY: 'New York'
+}
+Darshan
+

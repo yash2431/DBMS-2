@@ -1,0 +1,547 @@
+use student
+switched to db student
+db.createCollection("student")
+{ ok: 1 }
+db.student.insertMany([
+  {
+    ROLLNO: 101,
+    SNAME: "Vina",
+    DEPARTMENT: "CE",
+    FEES: 15000,
+    SEM: 3,
+    GENDER: "Female",
+    CITY: "Rajkot"
+  },
+  {
+    ROLLNO: 102,
+    SNAME: "Krisha",
+    DEPARTMENT: "EC",
+    FEES: 8000,
+    SEM: 5,
+    GENDER: "Female",
+    CITY: "Ahmedabad"
+  },
+  {
+    ROLLNO: 103,
+    SNAME: "Priti",
+    DEPARTMENT: "Civil",
+    FEES: 12000,
+    SEM: 7,
+    GENDER: "Female",
+    CITY: "Baroda"
+  },
+  {
+    ROLLNO: 104,
+    SNAME: "Mitul",
+    DEPARTMENT: "CE",
+    FEES: 15000,
+    SEM: 3,
+    GENDER: "Male",
+    CITY: "Rajkot"
+  },
+  {
+    ROLLNO: 105,
+    SNAME: "Keshav",
+    DEPARTMENT: "CE",
+    FEES: 15000,
+    SEM: 3,
+    GENDER: "Male",
+    CITY: "Jamnagar"
+  },
+  {
+    ROLLNO: 106,
+    SNAME: "Zarna",
+    DEPARTMENT: "Civil",
+    FEES: 12000,
+    SEM: 5,
+    GENDER: "Female",
+    CITY: "Ahmedabad"
+  },
+  {
+    ROLLNO: 107,
+    SNAME: "Nima",
+    DEPARTMENT: "EE",
+    FEES: 9000,
+    SEM: 5,
+    GENDER: "Female",
+    CITY: "Rajkot"
+  },
+  {
+    ROLLNO: 108,
+    SNAME: "Dhruv",
+    DEPARTMENT: "Mechanical",
+    FEES: 10000,
+    SEM: 5,
+    GENDER: "Male",
+    CITY: "Rajkot"
+  },
+  {
+    ROLLNO: 109,
+    SNAME: "Krish",
+    DEPARTMENT: "Mechanical",
+    FEES: 10000,
+    SEM: 7,
+    GENDER: "Male",
+    CITY: "Baroda"
+  },
+  {
+    ROLLNO: 110,
+    SNAME: "Zeel",
+    DEPARTMENT: "EE",
+    FEES: 9000,
+    SEM: 3,
+    GENDER: "Female",
+    CITY: "Jamnagar"
+  }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67bd4c08af3f3aa5a9200dc5'),
+    '1': ObjectId('67bd4c08af3f3aa5a9200dc6'),
+    '2': ObjectId('67bd4c08af3f3aa5a9200dc7'),
+    '3': ObjectId('67bd4c08af3f3aa5a9200dc8'),
+    '4': ObjectId('67bd4c08af3f3aa5a9200dc9'),
+    '5': ObjectId('67bd4c08af3f3aa5a9200dca'),
+    '6': ObjectId('67bd4c08af3f3aa5a9200dcb'),
+    '7': ObjectId('67bd4c08af3f3aa5a9200dcc'),
+    '8': ObjectId('67bd4c08af3f3aa5a9200dcd'),
+    '9': ObjectId('67bd4c08af3f3aa5a9200dce')
+  }
+}
+db.student.aggregate([{$group:{_id:"SCITY"}}])
+{
+  _id: 'SCITY'
+}
+db.student.aggregate([{$group:{_id:"$CITY"}}])
+{
+  _id: 'Ahmedabad'
+}
+{
+  _id: 'Baroda'
+}
+{
+  _id: 'Jamnagar'
+}
+{
+  _id: 'Rajkot'
+}
+db.student.aggregate([{$group:{_id:"$CITY",count:{$sum:1}}}])
+{
+  _id: 'Baroda',
+  count: 2
+}
+{
+  _id: 'Jamnagar',
+  count: 2
+}
+{
+  _id: 'Ahmedabad',
+  count: 2
+}
+{
+  _id: 'Rajkot',
+  count: 4
+}
+db.student.aggregate([{$group:{_id:null,totalfees:{$sum:"$FEES"}}}])
+{
+  _id: null,
+  totalfees: 115000
+}
+db.student.aggregate([{$group:{_id:null,avgfees:{$avg:"$FEES"}}}])
+{
+  _id: null,
+  avgfees: 11500
+}
+db.student.aggregate([{$group:{_id:null,maxfees:{$max:"$FEES"},minfees:{$min:"$FEES"}}}])
+{
+  _id: null,
+  maxfees: 15000,
+  minfees: 8000
+}
+db.student.aggregate([{$group:{_id:"$CITY",totalfees:{$sum:"$FEES"}}}])
+{
+  _id: 'Baroda',
+  totalfees: 22000
+}
+{
+  _id: 'Ahmedabad',
+  totalfees: 20000
+}
+{
+  _id: 'Rajkot',
+  totalfees: 49000
+}
+{
+  _id: 'Jamnagar',
+  totalfees: 24000
+}
+db.student.aggregate([{$group:{_id:"$GENDER",maxfees:{$max:"$FEES"}}}])
+{
+  _id: 'Female',
+  maxfees: 15000
+}
+{
+  _id: 'Male',
+  maxfees: 15000
+}
+db.student.aggregate([{$group:{_id:"$CITY",maxfees:{$max:"$FEES"},minfees:{$min:"$FEES"}}}])
+{
+  _id: 'Ahmedabad',
+  maxfees: 12000,
+  minfees: 8000
+}
+{
+  _id: 'Baroda',
+  maxfees: 12000,
+  minfees: 10000
+}
+{
+  _id: 'Jamnagar',
+  maxfees: 15000,
+  minfees: 9000
+}
+{
+  _id: 'Rajkot',
+  maxfees: 15000,
+  minfees: 9000
+}
+db.student.aggregate([
+  {$match:{CITY:"Baroda"}},
+{$group:{_id:"$CITY",count:{$sum:1}}}])
+{
+  _id: 'Baroda',
+  count: 2
+}
+db.student.aggregate([
+  {$match:{CITY:"Rajkot"}},
+{$group:{_id:"$CITY",avgfees:{$avg:"$FEES"}}}])
+{
+  _id: 'Rajkot',
+  avgfees: 12250
+}
+db.student.aggregate([{$group:{_id:"$GENDER",count:{$sum:1}}}])
+{
+  _id: 'Female',
+  count: 6
+}
+{
+  _id: 'Male',
+  count: 4
+}
+db.student.aggregate([{$group:{_id:Department:"$DEPARTMENT",Gender:"$GENDER",count:{$sum:1}}}])
+SyntaxError: Unexpected token, expected "," (1:45)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m db[33m.[39mstudent[33m.[39maggregate([{$group[33m:[39m{_id[33m:[39m[33mDepartment[39m[33m:[39m[32m"$DEPARTMENT"[39m[33m,[39m[33mGender[39m[33m:[39m[32m"$GENDER"[39m[33m,[39mcount[33m:[39m{$sum[33m:[39m[35m1[39m}}}])
+ [90m   |[39m                                              [31m[1m^[22m[39m[0m
+db.student.aggregate([{$group:{_id:{Department:"$DEPARTMENT",Gender:"$GENDER"},count:{$sum:1}}}])
+{
+  _id: {
+    Department: 'CE',
+    Gender: 'Female'
+  },
+  count: 1
+}
+{
+  _id: {
+    Department: 'CE',
+    Gender: 'Male'
+  },
+  count: 2
+}
+{
+  _id: {
+    Department: 'EE',
+    Gender: 'Female'
+  },
+  count: 2
+}
+{
+  _id: {
+    Department: 'Civil',
+    Gender: 'Female'
+  },
+  count: 2
+}
+{
+  _id: {
+    Department: 'EC',
+    Gender: 'Female'
+  },
+  count: 1
+}
+{
+  _id: {
+    Department: 'Mechanical',
+    Gender: 'Male'
+  },
+  count: 2
+}
+db.student.aggregate([{$group:{_id:"$DEPARTMENT",totalfees:{$sum:"$FEES"}}}])
+{
+  _id: 'Mechanical',
+  totalfees: 20000
+}
+{
+  _id: 'Civil',
+  totalfees: 24000
+}
+{
+  _id: 'EC',
+  totalfees: 8000
+}
+{
+  _id: 'CE',
+  totalfees: 45000
+}
+{
+  _id: 'EE',
+  totalfees: 18000
+}
+db.student.aggregate([{$group:{_id:{Department:"$CITY",Gender:"$GENDER"},minfees:{$min:"$FEES"}}}])
+{
+  _id: {
+    Department: 'Baroda',
+    Gender: 'Female'
+  },
+  minfees: 12000
+}
+{
+  _id: {
+    Department: 'Rajkot',
+    Gender: 'Female'
+  },
+  minfees: 9000
+}
+{
+  _id: {
+    Department: 'Rajkot',
+    Gender: 'Male'
+  },
+  minfees: 10000
+}
+{
+  _id: {
+    Department: 'Jamnagar',
+    Gender: 'Male'
+  },
+  minfees: 15000
+}
+{
+  _id: {
+    Department: 'Ahmedabad',
+    Gender: 'Female'
+  },
+  minfees: 8000
+}
+{
+  _id: {
+    Department: 'Baroda',
+    Gender: 'Male'
+  },
+  minfees: 10000
+}
+{
+  _id: {
+    Department: 'Jamnagar',
+    Gender: 'Female'
+  },
+  minfees: 9000
+}
+db.student.aggregate([{$sort:{FEES:-1}},{$limit:5}])
+{
+  _id: ObjectId('67bd4c08af3f3aa5a9200dc9'),
+  ROLLNO: 105,
+  SNAME: 'Keshav',
+  DEPARTMENT: 'CE',
+  FEES: 15000,
+  SEM: 3,
+  GENDER: 'Male',
+  CITY: 'Jamnagar'
+}
+{
+  _id: ObjectId('67bd4c08af3f3aa5a9200dc8'),
+  ROLLNO: 104,
+  SNAME: 'Mitul',
+  DEPARTMENT: 'CE',
+  FEES: 15000,
+  SEM: 3,
+  GENDER: 'Male',
+  CITY: 'Rajkot'
+}
+{
+  _id: ObjectId('67bd4c08af3f3aa5a9200dc5'),
+  ROLLNO: 101,
+  SNAME: 'Vina',
+  DEPARTMENT: 'CE',
+  FEES: 15000,
+  SEM: 3,
+  GENDER: 'Female',
+  CITY: 'Rajkot'
+}
+{
+  _id: ObjectId('67bd4c08af3f3aa5a9200dca'),
+  ROLLNO: 106,
+  SNAME: 'Zarna',
+  DEPARTMENT: 'Civil',
+  FEES: 12000,
+  SEM: 5,
+  GENDER: 'Female',
+  CITY: 'Ahmedabad'
+}
+{
+  _id: ObjectId('67bd4c08af3f3aa5a9200dc7'),
+  ROLLNO: 103,
+  SNAME: 'Priti',
+  DEPARTMENT: 'Civil',
+  FEES: 12000,
+  SEM: 7,
+  GENDER: 'Female',
+  CITY: 'Baroda'
+}
+db.student.aggregate([
+{$group:{_id:"$CITY",avgfees:{$avg:"$FEES"},count:{$sum:1}}},
+  {$match:{count{$gt:1}}}])
+SyntaxError: Unexpected token, expected "," (3:16)
+
+[0m [90m 1 |[39m db[33m.[39mstudent[33m.[39maggregate([
+ [90m 2 |[39m {$group[33m:[39m{_id[33m:[39m[32m"$CITY"[39m[33m,[39mavgfees[33m:[39m{$avg[33m:[39m[32m"$FEES"[39m}[33m,[39mcount[33m:[39m{$sum[33m:[39m[35m1[39m}}}[33m,[39m
+[31m[1m>[22m[39m[90m 3 |[39m   {$match[33m:[39m{count{$gt[33m:[39m[35m1[39m}}}])
+ [90m   |[39m                 [31m[1m^[22m[39m[0m
+db.student.aggregate([
+{$group:{_id:"$CITY",avgfees:{$avg:"$FEES"},count:{$sum:1}}},
+  {$match:{count:{$gt:1}}}])
+{
+  _id: 'Baroda',
+  avgfees: 11000,
+  count: 2
+}
+{
+  _id: 'Ahmedabad',
+  avgfees: 10000,
+  count: 2
+}
+{
+  _id: 'Rajkot',
+  avgfees: 12250,
+  count: 4
+}
+{
+  _id: 'Jamnagar',
+  avgfees: 12000,
+  count: 2
+}
+db.student.aggregate([
+  {$match:{$in:{DEPARTMENT:['CE','Mechanical']}}}
+{$group:{_id:"$DEPARTMENT",totalfees:{$sum:"$FEES"}}}])
+SyntaxError: Unexpected token, expected "," (3:0)
+
+[0m [90m 1 |[39m db[33m.[39mstudent[33m.[39maggregate([
+ [90m 2 |[39m   {$match[33m:[39m{$in[33m:[39m{[33mDEPARTMENT[39m[33m:[39m[[32m'CE'[39m[33m,[39m[32m'Mechanical'[39m]}}}
+[31m[1m>[22m[39m[90m 3 |[39m {$group[33m:[39m{_id[33m:[39m[32m"$DEPARTMENT"[39m[33m,[39mtotalfees[33m:[39m{$sum[33m:[39m[32m"$FEES"[39m}}}])
+ [90m   |[39m [31m[1m^[22m[39m[0m
+db.student.aggregate([
+  {$match:{$in:{DEPARTMENT:['CE','Mechanical']}}},
+{$group:{_id:"$DEPARTMENT",totalfees:{$sum:"$FEES"}}}])
+MongoServerError[BadValue]: unknown top level operator: $in. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.
+db.student.aggregate([
+  {$match:{DEPARTMENT:{$in:['CE','Mechanical']}}},
+{$group:{_id:"$DEPARTMENT",totalfees:{$sum:"$FEES"}}}])
+{
+  _id: 'CE',
+  totalfees: 45000
+}
+{
+  _id: 'Mechanical',
+  totalfees: 20000
+}
+db.student.aggregate([
+  {$match:{DEPARTMENT:{$in:['CE','Mechanical']}}},
+{$group:{_id:null,totalfees:{$sum:"$FEES"}}}])
+{
+  _id: null,
+  totalfees: 65000
+}
+db.student.aggregate([{$group:{_id:{Department:"$DEPARTMENT",Gender:"$GENDER"},count:{$sum:1}}}])
+{
+  _id: {
+    Department: 'EC',
+    Gender: 'Female'
+  },
+  count: 1
+}
+{
+  _id: {
+    Department: 'Civil',
+    Gender: 'Female'
+  },
+  count: 2
+}
+{
+  _id: {
+    Department: 'EE',
+    Gender: 'Female'
+  },
+  count: 2
+}
+{
+  _id: {
+    Department: 'CE',
+    Gender: 'Female'
+  },
+  count: 1
+}
+{
+  _id: {
+    Department: 'CE',
+    Gender: 'Male'
+  },
+  count: 2
+}
+{
+  _id: {
+    Department: 'Mechanical',
+    Gender: 'Male'
+  },
+  count: 2
+}
+db.student.aggregate([
+  {$match:{CITY:"Rajkot"}},
+{$group:{_id:"$DEPARTMENT",avgfees:{$avg:"$FEES"}}}])
+{
+  _id: 'CE',
+  avgfees: 15000
+}
+{
+  _id: 'EE',
+  avgfees: 9000
+}
+{
+  _id: 'Mechanical',
+  avgfees: 10000
+}
+db.student.aggregate([{$group:{_id:"$SEM",totalfees:{$sum:"$FEES"},avgfees:{$avg:"$FEES"}}},{$sort:{totalfees:-1}}])
+{
+  _id: 3,
+  totalfees: 54000,
+  avgfees: 13500
+}
+{
+  _id: 5,
+  totalfees: 39000,
+  avgfees: 9750
+}
+{
+  _id: 7,
+  totalfees: 22000,
+  avgfees: 11000
+}
+db.student.aggregate([{$group:{_id:"$CITY",totalfees:{$sum:"$FEES"}}},{$sort:{totalfees:-1}},{$limit:3}])
+{
+  _id: 'Rajkot',
+  totalfees: 49000
+}
+{
+  _id: 'Jamnagar',
+  totalfees: 24000
+}
